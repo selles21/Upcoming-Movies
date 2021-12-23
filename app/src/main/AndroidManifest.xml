@@ -13,17 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".details.DetailsActivity"
+            android:name="com.arctouch.codechallenge.feature_movies.presentation.details.DetailsActivity"
             android:label=""
-            android:parentActivityName=".home.HomeActivity"
+            android:parentActivityName="com.arctouch.codechallenge.feature_movies.presentation.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.arctouch.codechallenge.home.HomeActivity" />
+                android:value="com.arctouch.codechallenge.feature_movies.presentation.home.HomeActivity" />
         </activity>
         <activity
-            android:name=".home.HomeActivity"
-            android:launchMode="singleTop">
+            android:name="com.arctouch.codechallenge.feature_movies.presentation.home.HomeActivity"
+            android:launchMode="singleTop"
+            android:exported="true">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />

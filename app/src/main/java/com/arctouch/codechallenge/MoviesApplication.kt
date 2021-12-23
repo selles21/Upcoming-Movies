@@ -6,6 +6,7 @@ import com.arctouch.codechallenge.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class MoviesApplication : Application() {
     override fun onCreate() {
@@ -15,7 +16,7 @@ class MoviesApplication : Application() {
 
         startKoin {
             //Koin logguer
-            androidLogger()
+            androidLogger(Level.NONE)
             //Declare context
             androidContext(this@MoviesApplication)
 

@@ -7,13 +7,13 @@
 
         <variable
             name="movie"
-            type="com.arctouch.codechallenge.model.Movie" />
+            type="com.arctouch.codechallenge.feature_movies.domain.model.Movie" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".details.DetailsActivity">
+        tools:context="com.arctouch.codechallenge.feature_movies.presentation.details.DetailsActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
