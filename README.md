@@ -1,5 +1,5 @@
 # Upcoming-Movies
-This is a demo application. We get the movies information using TMDB api.
+This is a demo application. We get the movies information using the TMDB api.
 
 ### We have 3 branch
 - `master` Basic code
