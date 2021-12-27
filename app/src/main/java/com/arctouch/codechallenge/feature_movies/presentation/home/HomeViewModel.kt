@@ -38,6 +38,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application), K
      */
     val state: LiveData<UiState>
 
+
     /**
      * Processor of side effects from the UI which in turn feedback into [state]
      */
