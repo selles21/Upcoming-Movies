@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeActivity">
 
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.arctouch.codechallenge.feature_movies.presentation.home.HomeActivity"
+        android:label="HomeActivity" />
+    <activity
+        android:id="@+id/detailsActivity"
+        android:name="com.arctouch.codechallenge.feature_movies.presentation.details.DetailsActivity"
+        android:label="DetailsActivity" />
 </navigation>

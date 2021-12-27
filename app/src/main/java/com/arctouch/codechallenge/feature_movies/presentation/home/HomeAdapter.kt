@@ -2,14 +2,20 @@ package com.arctouch.codechallenge.feature_movies.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arctouch.codechallenge.databinding.MovieItemBinding
 import com.arctouch.codechallenge.feature_movies.domain.model.Movie
 import com.arctouch.codechallenge.feature_movies.domain.util.MovieImageUrlBuilder
+import org.koin.core.component.KoinApiExtension
 
-class HomeAdapter(private val viewModel: HomeViewModel, private val movies: ArrayList<Movie>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+@KoinApiExtension
+class HomeAdapter(private val viewModel: HomeViewModel, private val movies: ArrayList<Movie>) :
+    ListAdapter<Movie, HomeAdapter.ViewHolder>(MOVIE_COMPARATOR) {
 
-    class ViewHolder(val itemBinding: MovieItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+    class ViewHolder(val itemBinding: MovieItemBinding) :
+        RecyclerView.ViewHolder(itemBinding.root) {
 
         private val movieImageUrlBuilder = MovieImageUrlBuilder()
 
@@ -31,16 +37,25 @@ class HomeAdapter(private val viewModel: HomeViewModel, private val movies: Arra
         }
     }
 
-    fun addItems(items: ArrayList<Movie>) {
-        movies.addAll(items)
-        notifyItemRangeInserted(movies.size - items.size, items.size)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    override fun getItemCount() = movies.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val movie = getItem(position)
+        if (movie != null) {
+            holder.bind(viewModel, movie)
+        }
+    }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(viewModel, movies[position])
+    companion object {
+        private val MOVIE_COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+                oldItem == newItem
+        }
+    }
 }
