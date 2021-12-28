@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">Code Challenge</string>
+    <string name="app_name">Upcoming Movies</string>
     <string name="movie_and_genres">%s - %s</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="desc_cover">Movie cover</string>
+    <string name="desc_poster">Movie poster</string>
+    <string name="genres">Genres</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">Movie litle</string>
 </resources>

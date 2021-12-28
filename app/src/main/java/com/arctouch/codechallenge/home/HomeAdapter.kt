@@ -1,40 +1,46 @@
 package com.arctouch.codechallenge.home
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.arctouch.codechallenge.R
+import androidx.recyclerview.widget.RecyclerView
+import com.arctouch.codechallenge.databinding.MovieItemBinding
 import com.arctouch.codechallenge.model.Movie
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.movie_item.view.*
 
-class HomeAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(private val viewModel: HomeViewModel, private val movies: ArrayList<Movie>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(val itemBinding: MovieItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
 
         private val movieImageUrlBuilder = MovieImageUrlBuilder()
 
-        fun bind(movie: Movie) {
-            itemView.titleTextView.text = movie.title
-            itemView.genresTextView.text = movie.genres?.joinToString(separator = ", ") { it.name }
-            itemView.releaseDateTextView.text = movie.releaseDate
+        fun bind(viewModel: HomeViewModel, movie: Movie) {
 
-            Glide.with(itemView)
-                .load(movie.posterPath?.let { movieImageUrlBuilder.buildPosterUrl(it) })
-                .apply(RequestOptions().placeholder(R.drawable.ic_image_placeholder))
-                .into(itemView.posterImageView)
+            itemBinding.movie = movie
+            itemBinding.handler = viewModel
+            itemBinding.executePendingBindings()
+
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = MovieItemBinding.inflate(layoutInflater, parent, false)
+
+                return ViewHolder(binding)
+            }
         }
     }
 
+    fun addItems(items: ArrayList<Movie>) {
+        movies.addAll(items)
+        notifyItemRangeInserted(movies.size - items.size, items.size)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-        return ViewHolder(view)
+        return ViewHolder.from(parent)
     }
 
     override fun getItemCount() = movies.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(movies[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(viewModel, movies[position])
 }
